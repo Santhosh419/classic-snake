@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "VT323", monospace;
+  --color-cyan-glitch: #00ffff;
+  --color-magenta-glitch: #ff00ff;
+  --color-dark-void: #050505;
+}
+
+body {
+  background-color: var(--color-dark-void);
+  color: var(--color-cyan-glitch);
+  font-family: "VT323", monospace;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* CRT Scanline Overlay */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Screen Flicker */
+.flicker {
+  animation: flicker 0.15s infinite;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 255, 255, 0.02);
+  z-index: 49;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.1; }
+  100% { opacity: 1; }
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-dark-void);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--color-magenta-glitch);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--color-cyan-glitch);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(12px, 9999px, 89px, 0); }
+  5% { clip: rect(76px, 9999px, 53px, 0); }
+  10% { clip: rect(29px, 9999px, 98px, 0); }
+  15% { clip: rect(42px, 9999px, 11px, 0); }
+  20% { clip: rect(65px, 9999px, 77px, 0); }
+  25% { clip: rect(91px, 9999px, 34px, 0); }
+  30% { clip: rect(15px, 9999px, 62px, 0); }
+  35% { clip: rect(88px, 9999px, 21px, 0); }
+  40% { clip: rect(54px, 9999px, 95px, 0); }
+  45% { clip: rect(3px, 9999px, 47px, 0); }
+  50% { clip: rect(72px, 9999px, 8px, 0); }
+  55% { clip: rect(39px, 9999px, 83px, 0); }
+  60% { clip: rect(96px, 9999px, 25px, 0); }
+  65% { clip: rect(18px, 9999px, 69px, 0); }
+  70% { clip: rect(61px, 9999px, 14px, 0); }
+  75% { clip: rect(84px, 9999px, 58px, 0); }
+  80% { clip: rect(27px, 9999px, 92px, 0); }
+  85% { clip: rect(50px, 9999px, 37px, 0); }
+  90% { clip: rect(9px, 9999px, 74px, 0); }
+  95% { clip: rect(79px, 9999px, 41px, 0); }
+  100% { clip: rect(33px, 9999px, 86px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 12px, 0); }
+  5% { clip: rect(21px, 9999px, 88px, 0); }
+  10% { clip: rect(94px, 9999px, 45px, 0); }
+  15% { clip: rect(38px, 9999px, 71px, 0); }
+  20% { clip: rect(8px, 9999px, 29px, 0); }
+  25% { clip: rect(76px, 9999px, 95px, 0); }
+  30% { clip: rect(52px, 9999px, 18px, 0); }
+  35% { clip: rect(14px, 9999px, 63px, 0); }
+  40% { clip: rect(89px, 9999px, 37px, 0); }
+  45% { clip: rect(41px, 9999px, 82px, 0); }
+  50% { clip: rect(97px, 9999px, 5px, 0); }
+  55% { clip: rect(26px, 9999px, 59px, 0); }
+  60% { clip: rect(68px, 9999px, 91px, 0); }
+  65% { clip: rect(3px, 9999px, 44px, 0); }
+  70% { clip: rect(55px, 9999px, 78px, 0); }
+  75% { clip: rect(81px, 9999px, 22px, 0); }
+  80% { clip: rect(34px, 9999px, 67px, 0); }
+  85% { clip: rect(92px, 9999px, 11px, 0); }
+  90% { clip: rect(17px, 9999px, 53px, 0); }
+  95% { clip: rect(62px, 9999px, 86px, 0); }
+  100% { clip: rect(47px, 9999px, 39px, 0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark-void);
+  border-left: 1px solid var(--color-magenta-glitch);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-cyan-glitch);
+}
